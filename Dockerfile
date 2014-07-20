@@ -30,5 +30,4 @@ EXPOSE 443
 
 WORKDIR /var/www/discourse/
 ENV DISCOURSE_DB_USERNAME postgres
-ENV RAILS_ENV production
 CMD ["./docker-startup.sh"]

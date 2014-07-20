@@ -12,6 +12,7 @@ profile:
 
 test:
   <<: *defaults
+  host: <%= ENV['DISCOURSE_REDIS_HOST'] || GlobalSetting.redis_host %>
   db: 1
 
 staging:

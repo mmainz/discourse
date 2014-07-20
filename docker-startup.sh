@@ -8,8 +8,25 @@ if [ -n "$REDIS_PORT_6379_TCP_ADDR" ]; then
   export DISCOURSE_REDIS_HOST="$REDIS_PORT_6379_TCP_ADDR"
 fi
 
-rake db:create db:migrate
-rake assets:precompile
+if [ $1 = "test" ]
+then
+  export RAILS_ENV=test
+fi
+
+rake db:create db:migrate db:test:prepare
+
+if [ $1 != "test" ]
+then
+  rake assets:precompile
+fi
 
 service nginx start
-rails s
+
+if [ $1 = "test" ]
+then
+  rake spec
+  rake qunit:test
+else
+  export RAILS_ENV=production
+  rails s
+fi
