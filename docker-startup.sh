@@ -24,6 +24,7 @@ service nginx start
 
 if [ $1 = "test" ]
 then
+  set -e
   rake spec
   rake qunit:test
 else
